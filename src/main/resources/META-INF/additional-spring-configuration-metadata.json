@@ -1,0 +1,41 @@
+{
+  "properties": [
+    {
+      "name": "whistle.wechat.domain",
+      "type": "java.lang.String",
+      "sourceType": "org.whistle.easywechat.boot.EasyWeChatProperties",
+      "description": "微信公众号接口域名.",
+      "defaultValue": "api.weixin.qq.com"
+    },
+    {
+      "name": "whistle.wechat.appId",
+      "type": "java.lang.String",
+      "sourceType": "org.whistle.easywechat.boot.EasyWeChatProperties",
+      "description": "第三方用户唯一凭证."
+    },
+    {
+      "name": "whistle.wechat.secret",
+      "type": "java.lang.String",
+      "sourceType": "org.whistle.easywechat.boot.EasyWeChatProperties",
+      "description": "第三方用户唯一凭证密钥，即appsecret."
+    },
+    {
+      "name": "whistle.wechat.token",
+      "type": "java.lang.String",
+      "sourceType": "org.whistle.easywechat.boot.EasyWeChatProperties",
+      "description": "该Token会和接口URL中包含的Token进行比对，从而验证安全性."
+    },
+    {
+      "name": "whistle.wechat.encodingAESKey",
+      "type": "java.lang.String",
+      "sourceType": "org.whistle.easywechat.boot.EasyWeChatProperties",
+      "description": "EncodingAESKey由开发者手动填写或随机生成，将用作消息体加解密密钥。."
+    },
+    {
+      "name": "whistle.wechat.encryptionType",
+      "type": "org.whistle.easywechat.consts.EncryptionType",
+      "sourceType": "org.whistle.easywechat.boot.EasyWeChatProperties",
+      "description": "明文模式、兼容模式和安全模式(默认为明文模式).",
+      "defaultValue": "plaintextMode"
+    }
+  ] }
