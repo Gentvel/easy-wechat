@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>org.whistle</groupId>
 	<artifactId>easy-wechat</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>easy-wechat</name>
 	<description>创建微信公众号后端简易Spring集成工具</description>
 
@@ -25,7 +25,7 @@
 		<url>scm:git:file://E:/org/whistle/easy-wechat/.git</url>
 		<connection>scm:git:file://E:/org/whistle/easy-wechat/.git</connection>
 		<developerConnection>scm:git:file://E:/org/whistle/easy-wechat/.git</developerConnection>
-		<tag>easy-wechat-0.0.2</tag>
+		<tag>thoth-maven-release-plugin-1.7-fix-sequence</tag>
 	</scm>
 
 	<build>
