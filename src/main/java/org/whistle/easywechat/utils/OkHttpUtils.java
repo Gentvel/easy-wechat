@@ -2,6 +2,7 @@ package org.whistle.easywechat.utils;
 
 import com.alibaba.fastjson.JSON;
 import okhttp3.*;
+import org.whistle.easywechat.consts.AppConst;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
@@ -77,7 +78,7 @@ public class OkHttpUtils {
      *
      */
     public OkHttpUtils url(String url) {
-        this.url = url;
+        this.url = AppConst.HTTP_HEADER+url;
         return this;
     }
 
@@ -96,6 +97,14 @@ public class OkHttpUtils {
     }
 
     /**
+     * 添加参数
+     */
+    public OkHttpUtils addParam(Map<String, String> map) {
+        paramMap = map;
+        return this;
+    }
+
+    /**
      * 添加请求头
      *
      * @param key   参数名
@@ -106,6 +115,16 @@ public class OkHttpUtils {
             headerMap = new LinkedHashMap<>(16);
         }
         headerMap.put(key, value);
+        return this;
+    }
+
+    /**
+     * 添加请求头
+     *
+     */
+    public OkHttpUtils addHeader(Map<String, String> map) {
+
+        headerMap=map;
         return this;
     }
 

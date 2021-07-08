@@ -11,10 +11,16 @@
 	<artifactId>easy-wechat</artifactId>
 	<version>0.0.3-SNAPSHOT</version>
 	<name>easy-wechat</name>
-	<description>创建微信公众号后端简易Spring集成工具</description>
+	<description>创建微信公众号后端简易SpringBoot集成工具</description>
 
 
-
+	<developers>
+	     <developer>
+	         <name>gentvel</name>
+	         <email>gentvelmz@gmail.com</email>
+	         <organization>gbc</organization>
+		 </developer>
+	</developers>
 	<properties>
 		<java.version>11</java.version>
 		<fastjson.version>1.2.60</fastjson.version>
@@ -82,6 +88,7 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>${fastjson.version}</version>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -96,11 +103,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
