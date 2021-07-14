@@ -26,4 +26,21 @@ public class AppConst {
      * 获取临时素材
      */
     public static final String GET_TEMPORARY="/cgi-bin/media/get";
+    /**
+     * 新增临时图文素材
+     */
+    public static final String ADD_TEMPORARY_NEWS="/cgi-bin/media/uploadnews";
+    /**
+     * 新增永久图文素材
+     */
+    public static final String ADD_PERMANENT_NEWS = "/cgi-bin/material/add_news";
+
+    /**
+     * 上传图文内素材
+     */
+    public static final String ADD_PERMANENT_NEWS_MATERIAL ="/cgi-bin/media/uploadimg";
+    /**
+     * 新增其他类型素材
+     */
+    public static final String ADD_PERMANENT="/cgi-bin/material/add_material";
 }

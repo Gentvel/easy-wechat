@@ -1,2 +1,9 @@
 server:
-  port: 8081
+  port: 8080
+whistle:
+  wechat:
+    domain: 'api.weixin.qq.com'
+    appId: 'wx32c2aac964d2e892'
+    secret: '6fccb15a4b1f3687674711186e644d68'
+    token: 'omJNpZEhZeHj1ZxFECKkP48B5VFbk1HP'
+    encryptionType: plaintextmode

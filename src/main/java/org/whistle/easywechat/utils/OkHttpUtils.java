@@ -2,12 +2,12 @@ package org.whistle.easywechat.utils;
 
 import com.alibaba.fastjson.JSON;
 import okhttp3.*;
-import org.whistle.easywechat.consts.AppConst;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
@@ -65,6 +65,27 @@ public class OkHttpUtils {
         return semaphore;
     }
 
+
+
+    private String urlBuilder(){
+        StringBuilder urlBuilder = new StringBuilder(url);
+        if (paramMap != null) {
+            urlBuilder.append("?");
+            try {
+                for (Map.Entry<String, String> entry : paramMap.entrySet()) {
+                    urlBuilder.append(URLEncoder.encode(entry.getKey(), "utf-8")).
+                            append("=").
+                            append(URLEncoder.encode(entry.getValue(), "utf-8")).
+                            append("&");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            urlBuilder.deleteCharAt(urlBuilder.length() - 1);
+        }
+        return urlBuilder.toString();
+    }
+
     /**
      * 创建OkHttpUtils
      *
@@ -78,7 +99,7 @@ public class OkHttpUtils {
      *
      */
     public OkHttpUtils url(String url) {
-        this.url = AppConst.HTTP_HEADER+url;
+        this.url = "https://"+url;
         return this;
     }
 
@@ -128,55 +149,51 @@ public class OkHttpUtils {
         return this;
     }
 
+
+
     /**
      * 初始化get方法
      *
      */
     public OkHttpUtils get() {
-        request = new Request.Builder().get();
-        StringBuilder urlBuilder = new StringBuilder(url);
-        if (paramMap != null) {
-            urlBuilder.append("?");
-            try {
-                for (Map.Entry<String, String> entry : paramMap.entrySet()) {
-                    urlBuilder.append(URLEncoder.encode(entry.getKey(), "utf-8")).
-                            append("=").
-                            append(URLEncoder.encode(entry.getValue(), "utf-8")).
-                            append("&");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            urlBuilder.deleteCharAt(urlBuilder.length() - 1);
-        }
-        request.url(urlBuilder.toString());
+        request = new Request.Builder().get().url(urlBuilder());
         return this;
     }
 
     /**
      * 初始化post方法
      *
-     * @param isJsonPost true等于json的方式提交数据，类似postman里post方法的raw
-     *                   false等于普通的表单提交
      */
-    public OkHttpUtils post(boolean isJsonPost) {
-        RequestBody requestBody;
-        if (isJsonPost) {
-            String json = "";
-            if (paramMap != null) {
-                json = JSON.toJSONString(paramMap);
-            }
-            requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);
-        } else {
-            FormBody.Builder formBody = new FormBody.Builder();
-            if (paramMap != null) {
-                paramMap.forEach(formBody::add);
-            }
-            requestBody = formBody.build();
-        }
-        request = new Request.Builder().post(requestBody).url(url);
+    public OkHttpUtils post(String body) {
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), body);
+
+//            FormBody.Builder formBody = new FormBody.Builder();
+//            if (paramMap != null) {
+//                paramMap.forEach(formBody::add);
+//            }
+//            requestBody = formBody.build();
+
+        request = new Request.Builder().post(requestBody).url(urlBuilder());
         return this;
     }
+
+
+    /**
+     * 初始化上传文件方法
+     *
+     */
+    public OkHttpUtils file(File file) {
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("media", file.getName(),
+                        RequestBody.create(MediaType.parse("multipart/form-data"), file))
+                .build();
+        request = new Request.Builder().post(requestBody).url(urlBuilder());
+        return this;
+    }
+
+
+
 
 
     /**
