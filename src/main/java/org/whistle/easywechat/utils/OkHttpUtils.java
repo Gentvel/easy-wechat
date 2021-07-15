@@ -1,6 +1,5 @@
 package org.whistle.easywechat.utils;
 
-import com.alibaba.fastjson.JSON;
 import okhttp3.*;
 
 import javax.net.ssl.SSLContext;

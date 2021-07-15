@@ -47,4 +47,16 @@ public class PermanentMaterialService {
     public String uploadNews(String accessToken,String body){
         return easyWeChatRequest.post(AppConst.ADD_PERMANENT_NEWS,accessToken,body);
     }
+
+    /**
+     * 获取永久素材
+     * @param accessToken token
+     * @param mediaId JsonObject {
+     *   "media_id":MEDIA_ID
+     * }
+     * @return 素材
+     */
+    public String get(String accessToken,String mediaId){
+        return easyWeChatRequest.post(AppConst.GET_PERMANENT,accessToken,mediaId);
+    }
 }

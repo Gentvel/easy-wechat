@@ -1,7 +1,6 @@
 package org.whistle.easywechat.service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import org.whistle.easywechat.consts.AppConst;
 import org.whistle.easywechat.consts.UploadType;
 
@@ -42,7 +41,12 @@ public class TemporaryMaterialService {
         return easyWeChatRequest.file(AppConst.ADD_TEMPORARY,accessToken,type.name(),file);
     }
 
-
+    /**
+     * 获取临时素材
+     * @param accessToken token
+     * @param mediaId mediaId
+     * @return TODO 将返回值不会修改成
+     */
     public String get(String accessToken,String mediaId){
         Map<String, String> params = new HashMap<>(2);
         params.put("access_token", accessToken);

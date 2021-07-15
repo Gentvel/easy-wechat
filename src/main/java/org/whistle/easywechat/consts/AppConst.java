@@ -43,4 +43,9 @@ public class AppConst {
      * 新增其他类型素材
      */
     public static final String ADD_PERMANENT="/cgi-bin/material/add_material";
+
+    /**
+     * 获取永久素材
+     */
+    public static final String GET_PERMANENT = "/cgi-bin/material/get_material";
 }

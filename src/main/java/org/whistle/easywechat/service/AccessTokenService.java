@@ -5,7 +5,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.whistle.easywechat.boot.EasyWeChatProperties;
 import org.whistle.easywechat.consts.AppConst;
 
 import javax.annotation.Resource;
