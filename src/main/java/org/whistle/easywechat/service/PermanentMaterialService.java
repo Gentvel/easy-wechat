@@ -23,8 +23,18 @@ public class PermanentMaterialService {
      * @param file 文件
      * @return json
      */
-    public String uploadImage(String accessToken, File file){
+    public String uploadNewsImage(String accessToken, File file){
         return easyWeChatRequest.file(AppConst.ADD_PERMANENT_NEWS_MATERIAL,accessToken,null,file);
+    }
+
+    /**
+     * 上传图片
+     * @param accessToken accessToken
+     * @param file file
+     * @return json
+     */
+    public String uploadImage(String accessToken,File file){
+        return  upload(accessToken,file,UploadType.image);
     }
 
     /**

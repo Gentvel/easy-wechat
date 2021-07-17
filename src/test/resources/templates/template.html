@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>每日兼职</title>
@@ -40,7 +40,7 @@
                         style="border:solid 1px #609efd;background-color:#fefefe;padding:15px;box-shadow: #fee555 7px 7px 1px;margin:15px;margin-top: -20px;">
                     <section style="font-size:15px;letter-spacing:2px;line-height:1.75;margin: 40px 0px 20px;">
                         <p>
-                            测试
+                            ${head}
                         </p>
                     </section>
                     <section
@@ -49,11 +49,6 @@
                         <section style="width:50%;margin-left:10px;" data-width="50%" class=""></section>
                     </section>
                 </section>
-            </section>
-            <section class="v3editor">
-                <p>
-                    <br>
-                </p>
             </section>
             <section class="v3editor">
                 <p>
@@ -92,29 +87,42 @@
                     </section>
                 </section>
             </section>
-            <section class="v3editor" data-tools-id="39559">
-                <section
-                        style="border:solid 1px #609efd;background-color:#fefefe;padding: 20px 15px 15px;box-shadow: #fee555 7px 7px 1px;margin:15px;">
-                    <section class="v3editor" data-tools-id="86460">
-                        <section
-                                style="width:30px;height:30px;background-color:#fee555;border-radius:50%;margin-left: -5px;"
-                                data-width="30px"></section>
-                        <section
-                                style="font-size:16px;letter-spacing:2px;line-height:1.75;color:#609efd;margin-top: -23px;margin-left: 6px;">
-                            <p>
-                                今日岗位 &nbsp;：
-                            </p>
-                        </section>
-                    </section>
-                    <section class="v3editor" data-tools-id="25062">
-                        <section style="font-size:15px;letter-spacing:2px;margin:15px 0px;">
-                            <p>
-                                1、负责IT项目技术方案策划、需求分析、文档编写及方案演示;2、负责IT项目实施与管理工作，协调项目团队按时、保质完成项目,提高用户满意度。
-                            </p>
-                        </section>
+
+
+
+
+            <section th:each="parttime,stat:${parttimes}"
+                    style="border:solid 1px #609efd;background-color:#fefefe;padding: 20px 15px 15px;box-shadow: #fee555 7px 7px 1px;margin:15px;">
+                <section class="v3editor" data-tools-id="86460">
+                    <section
+                            style="width:30px;height:30px;background-color:#fee555;border-radius:50%;margin-left: -5px;"
+                            data-width="30px"></section>
+                    <section
+                            style="font-size:16px;letter-spacing:2px;line-height:1.75;color:#609efd;margin-top: -23px;margin-left: 6px;">
+                        <p>
+                            今日岗位 <strong style="color: crimson" th:text="${stat.count}"></strong> :
+                        </p>
                     </section>
                 </section>
+                <section class="v3editor" data-tools-id="25062">
+                    <section style="font-size:15px;letter-spacing:2px;margin:15px 0px;">
+                        <p th:utext="${#strings.unescapeJava(#strings.replace(#strings.escapeJava(parttime.txt),'\n','&lt;br/&gt;'))}"></p>
+                        <hr color=#0076cd size=3>
+                        <br>
+                        <p><strong>关注本公众号并回复：</strong>&nbsp;<strong style="color: crimson" th:text="${parttime.num}"></strong>&nbsp;<strong>即可报名(长按红字点击复制即可~)</strong></p>
+                    </section>
+                </section>
+                <section class="v3editor">
+                    <p>
+                        <br>
+                    </p>
+                </section>
             </section>
+
+
+
+
+
             <section class="v3editor">
                 <p>
                     <br>
@@ -139,19 +147,6 @@
                 </p>
             </section>
             <section class="v3editor">
-                <section style="font-size: 15px;line-height: 2;text-align:center;letter-spacing:2px;">
-                    <p>
-                        图片|无版权 请替换
-                    </p>
-                    <p>
-                        头部插画|微聚录（可商用）
-                    </p>
-                    <p>
-                        图形、形状|微聚录（可商用）
-                    </p>
-                </section>
-            </section>
-            <section class="v3editor">
                 <section style="margin:15px;">
                     <section
                             style="width:80px;height:80px;border-radius:50%;border: solid 5px #fee555;margin-left: auto;margin-bottom: -35px;transform: rotateZ(0deg);margin-right: -38px;"
@@ -173,7 +168,7 @@
                                             扫码关注我们
                                         </p>
                                         <p>
-                                            查看更多精彩内容
+                                            每天都有您的岗位
                                         </p>
                                     </section>
                                 </section>

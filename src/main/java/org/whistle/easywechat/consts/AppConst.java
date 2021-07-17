@@ -48,4 +48,10 @@ public class AppConst {
      * 获取永久素材
      */
     public static final String GET_PERMANENT = "/cgi-bin/material/get_material";
+
+
+    /**
+     * 群发接口预览
+     */
+    public static final String MASS_MAILING_PREVIEW ="/cgi-bin/message/mass/preview";
 }
