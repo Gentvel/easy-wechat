@@ -12,7 +12,6 @@ public class AppConst {
      */
     public static final String APP_PREFIX = "whistle";
 
-    public static final String HTTP_HEADER = "https://";
     /**
      * access token
      */
@@ -49,9 +48,41 @@ public class AppConst {
      */
     public static final String GET_PERMANENT = "/cgi-bin/material/get_material";
 
+    /**
+     * 删除永久素材
+     */
+    public static final String DELETE_PERMANENT = "/cgi-bin/material/del_material";
 
+    /**
+     * 修改永久图文素材
+     */
+    public static final String UPDATE_PERMANENT_NEWS = "/cgi-bin/material/update_news";
+    /**
+     * 获取素材总数
+     */
+    public static final String GET_PERMANENT_COUNT = "/cgi-bin/material/get_materialcount";
+
+    /**
+     * 获取素材列表
+     */
+    public static final String GET_MATERIAL_LIST = "/cgi-bin/material/batchget_material";
+
+    /**
+     * 群发消息
+     */
+    public static final String MASS_MAILING_SEND = "/cgi-bin/message/mass/sendall";
     /**
      * 群发接口预览
      */
     public static final String MASS_MAILING_PREVIEW ="/cgi-bin/message/mass/preview";
+
+    /**
+     * 查询群发消息发送状态
+     */
+    public static final String GET_MASS_MAILING_STATUS = "/cgi-bin/message/mass/get";
+
+    /**
+     * 删除群发
+     */
+    public static final String DEL_MASS_MAILING = "/cgi-bin/message/mass/delete";
 }
