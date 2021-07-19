@@ -31,11 +31,11 @@ public class MsgTypeHandler implements ContextHandler{
     public boolean handle(MsgContext context) {
         FromMessage fromMessage = context.getFromMessage();
         String response;
-        //事件推送
         if(StringUtils.hasText(fromMessage.getEvent())){
-             response = weChatEventDispatcher.dispatch(fromMessage);
-             //普通消息
+            //事件推送
+            response = weChatEventDispatcher.dispatch(fromMessage);
         }else{
+            //普通消息
             response = weChatOrdinaryDispatcher.dispatch(fromMessage);
         }
         log.debug(response);

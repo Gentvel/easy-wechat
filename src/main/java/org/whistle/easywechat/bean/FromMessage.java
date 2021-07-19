@@ -69,7 +69,7 @@ public class FromMessage {
     private String url;
 
     /**
-     * 关注/取消关注事件
+     * 事件
      */
     @XStreamAlias("Event")
     private String event;
