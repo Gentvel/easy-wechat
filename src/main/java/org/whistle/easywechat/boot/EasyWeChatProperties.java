@@ -54,6 +54,19 @@ public class EasyWeChatProperties {
      */
     private EncryptionType encryptionType = EncryptionType.plaintextMode;
 
+    /**
+     * 图文消息被判定为转载时，是否继续群发。 1为继续群发（转载），0为停止群发。 该参数默认为0。
+     */
+    private Integer sendIgnoreReprint = 0;
+
+    /**
+     * 是否打开评论，0不打开，1打开
+     */
+    private Integer needOpenComment;
+    /**
+     * 是否粉丝才可评论，0所有人可评论，1粉丝才可评论
+     */
+    private Integer onlyFansCanComment;
 
 
 }

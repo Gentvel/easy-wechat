@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 图文消息对象
  * @author Gentvel
  * @version 1.0.0
  */
@@ -114,9 +115,8 @@ public class News {
      */
     @Data
     class Article{
-        private static final String AUTHOR = "点击右方蓝字关注";
         private String thumb_media_id;
-        private String author=AUTHOR;
+        private String author;
         private String title;
         private String content_source_url;
         private String content;
@@ -124,7 +124,6 @@ public class News {
         private int show_cover_pic;
         private int need_open_comment;
         private int only_fans_can_comment;
-
     }
 
 }

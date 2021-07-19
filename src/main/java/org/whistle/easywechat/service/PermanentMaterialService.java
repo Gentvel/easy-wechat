@@ -69,4 +69,18 @@ public class PermanentMaterialService {
     public String get(String accessToken,String mediaId){
         return easyWeChatRequest.post(AppConst.GET_PERMANENT,accessToken,mediaId);
     }
+
+
+    /**
+     * 删除永久素材
+     * @param accessToken token
+     * @param mediaId JsonObject {
+     *   "media_id":MEDIA_ID
+     * }
+     * @return 素材
+     */
+    public String delete(String accessToken,String mediaId){
+        return easyWeChatRequest.post(AppConst.DELETE_PERMANENT,accessToken,mediaId);
+    }
+
 }

@@ -173,7 +173,7 @@ public class ServicesTest {
     @Test
     @DisplayName("群发预览接口")
     public void testPreviewNews(){
-        String preview = massMailingService.preview(accessToken, "EQtep6xL-T4MXrKTXCSKhUrqeNfdhJD42rGWKgNDI5I");
+        String preview = massMailingService.preview(accessToken, "EQtep6xL-T4MXrKTXCSKhUrqeNfdhJD42rGWKgNDI5I","o8IHE5tYEg5C5X3IHugKQJi0ENtk");
         log.info(preview);
         //{"media_id":"EQtep6xL-T4MXrKTXCSKhdYwPwo22i3I1KyMr1sh5N8","item":[]}
         //群发

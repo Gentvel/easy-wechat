@@ -31,6 +31,16 @@ public class TemporaryMaterialService {
     }
 
     /**
+     * 上传音频
+     * @param accessToken accessToken
+     * @param file 文件
+     * @return json
+     */
+    public String uploadVoice(String accessToken, File file){
+        return upload(accessToken,file,UploadType.voice);
+    }
+
+    /**
      * 上传文件接口
      * @param accessToken token
      * @param file 文件
@@ -45,7 +55,7 @@ public class TemporaryMaterialService {
      * 获取临时素材
      * @param accessToken token
      * @param mediaId mediaId
-     * @return TODO 将返回值不会修改成
+     * @return TODO 将返回值不修改成String
      */
     public String get(String accessToken,String mediaId){
         Map<String, String> params = new HashMap<>(2);
