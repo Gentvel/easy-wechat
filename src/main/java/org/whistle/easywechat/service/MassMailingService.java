@@ -171,7 +171,7 @@ public class MassMailingService implements EnvironmentAware {
      * @param tagId 当tagId为空时，说明是向全部用户发送，否则发送特定标签用户
      */
     public String sendVideo(String accessToken,String mediaId,@Nullable Integer tagId){
-        String s = buildMassMail(MassMailingType.voice, mediaId, tagId, null, null, null, null);
+        String s = buildMassMail(MassMailingType.mpvideo, mediaId, tagId, null, null, null, null);
         return sendMessage(accessToken,s);
     }
 
