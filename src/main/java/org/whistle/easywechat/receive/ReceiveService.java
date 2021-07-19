@@ -1,16 +1,12 @@
 package org.whistle.easywechat.receive;
 
-import com.thoughtworks.xstream.XStream;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.whistle.easywechat.bean.FromMessage;
 import org.whistle.easywechat.pipeline.EasyWeChatExecutor;
-import org.whistle.easywechat.receive.ordinary.WeChatOrdinaryDispatcher;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

@@ -3,14 +3,12 @@ package org.whistle.easywechat.pipeline;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import org.whistle.easywechat.bean.ToMessage;
 import org.whistle.easywechat.boot.EasyWeChatProperties;
 import org.whistle.easywechat.consts.EncryptionType;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Objects;
 
 
 /**
