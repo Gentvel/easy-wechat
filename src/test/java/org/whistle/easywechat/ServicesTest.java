@@ -7,6 +7,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ResourceLoaderAware;
+import org.springframework.core.io.ResourceLoader;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.whistle.easywechat.bean.News;
@@ -28,11 +30,11 @@ import java.util.ArrayList;
 @Slf4j
 @SpringBootTest(classes = EasyWechatApplicationTest.class)
 @DisplayName("测试素材服务")
-public class ServicesTest {
+public class ServicesTest implements ResourceLoaderAware {
     private String appid = "wx32c2aac964d2e892";
     private String secret = "6fccb15a4b1f3687674711186e644d68";
     //临时素材
-    private String accessToken="47_Kz9H0VTm-uQC7zeUPrFlAhHvWIcpv2ttrxfbXMgJWJRYheL3wNPcC993DKlOQyc5CVvJmsab3DbLud9DJ6J7hoE33rk0yKozY_gzmTWV5Miq019tQmbw7XBE9rqjTBAT4hSptmiQHPQY72enKKCaADAVVN";
+    private String accessToken="47_2BjR3lBWoFgwlHJ-0BbkVKt9ONcVPTbwLUw1NOhAkLlWK0wX2qJsC6N4WF6VF0ilFTBwK4cLgdMRb31QyzPcHUccQJX-MDff_ng_avMGsX_vwg1q7u7XWA0XvyUkv8HU4eT16q4Y8dGMmy7WIQIeAHALTL";
 
     private LocalDateTime expires;
 
@@ -51,10 +53,12 @@ public class ServicesTest {
     @Autowired
     private MassMailingService massMailingService;
 
+
+
     @Test
     @DisplayName("获取accessToken")
     public void testGetAccessToken(){
-
+        //String accessToken = easyWeChat.getAccessToken();
         //String resAccessToken = accessTokenService.getAccessToken(appid, secret);
         //{"access_token":"47_32hcdTK7irhUX54kaZvfWS5-rxFkGEyKE1i_ed4D-NsXw8BmFxs8rWy-hKU4YXF1P3v1A28noSgosMpVgieBSm6qkeiUj0GiOEuQp9Avk0hGApHx8yn9pAaVjfYGxSYeU5UFVgdBrr8Di8IdUKNiAJAYOR","expires_in":7200}
         String resAccessToken = accessTokenService.getAccessToken();
@@ -62,9 +66,9 @@ public class ServicesTest {
         JSONObject jsonObject = JSON.parseObject(resAccessToken);
         long expires_in = jsonObject.getLong("expires_in");
         if(expires_in>0){
-            accessToken=jsonObject.getString("access_token");
+            this.accessToken =jsonObject.getString("access_token");
             expires = LocalDateTime.now().plusHours(2);
-            log.info("当前access_token:{}",accessToken);
+            log.info("当前access_token:{}", this.accessToken);
         }
 
     }
@@ -89,7 +93,9 @@ public class ServicesTest {
     @Test
     @DisplayName("上传永久素材")
     public  void testUploadPermanent(){
+        //String s = permanentMaterialService.uploadImage(accessToken, new File("D:\\reactor1.png"));
         String s = permanentMaterialService.uploadImage(accessToken, new File("D:\\reactor1.png"));
+
         log.info(s);
         //bg1
         //http://mmbiz.qpic.cn/mmbiz_png/K8qOZbu34F9wBkfv4vzFo13qaia4EzuricW0bvAnn19W4CDLpGPIrwvxqXakEPtdwdIE37r7wjECkTbuWA0nIr3w/0
@@ -167,13 +173,16 @@ public class ServicesTest {
         //{"media_id":"EQtep6xL-T4MXrKTXCSKhaZ0D_bxBUPtFcuB4EsGICw","item":[]}
         //{"media_id":"EQtep6xL-T4MXrKTXCSKhYDOEoI9FsyHiuUBADpLeBk","item":[]}
         //{"media_id":"EQtep6xL-T4MXrKTXCSKhUrqeNfdhJD42rGWKgNDI5I","item":[]}
+        //{"media_id":"EQtep6xL-T4MXrKTXCSKhaeTldlEqIndnYt9q4Vgxto","item":[]}
     }
 
 
     @Test
     @DisplayName("群发预览接口")
     public void testPreviewNews(){
-        String preview = massMailingService.preview(accessToken, "EQtep6xL-T4MXrKTXCSKhUrqeNfdhJD42rGWKgNDI5I","o8IHE5tYEg5C5X3IHugKQJi0ENtk");
+        //String preview = massMailingService.preview("47_i8DuR7IePdm2gUiwafblSkXcb37AWnKhEYnB3ahb1hPGo9jVtlbJlKmYPZ1t2mLpbXHf-FyyfKCN1hc_QFn-bCLFQ9S6amkQPEtG4rlEijMuHgXjPSD1UUBxHKwFTyurms4oDnbMyi-DZ33VAVTfABAPKI", "EQtep6xL-T4MXrKTXCSKhUrqeNfdhJD42rGWKgNDI5I","o8IHE5tYEg5C5X3IHugKQJi0ENtk");
+        String preview = massMailingService.preview("47_i8DuR7IePdm2gUiwafblSkXcb37AWnKhEYnB3ahb1hPGo9jVtlbJlKmYPZ1t2mLpbXHf-FyyfKCN1hc_QFn-bCLFQ9S6amkQPEtG4rlEijMuHgXjPSD1UUBxHKwFTyurms4oDnbMyi-DZ33VAVTfABAPKI","EQtep6xL-T4MXrKTXCSKhaeTldlEqIndnYt9q4Vgxto" ,"o8IHE5tYEg5C5X3IHugKQJi0ENtk");
+
         log.info(preview);
         //{"media_id":"EQtep6xL-T4MXrKTXCSKhdYwPwo22i3I1KyMr1sh5N8","item":[]}
         //群发
@@ -183,5 +192,19 @@ public class ServicesTest {
     public void test(){
         String json = "{\"touser\":\"o8IHE5tYEg5C5X3IHugKQJi0ENtk\",\"mpnews\":{\"media_id\":\"EQtep6xL-T4MXrKTXCSKhdYwPwo22i3I1KyMr1sh5N8\"}, \"msgtype\":\"mpnews\"}";
         System.out.println(json);
+    }
+
+    private ResourceLoader resourceLoader;
+
+    @Override
+    public void setResourceLoader(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
+
+    @Test
+    @DisplayName("测试获取素材")
+    public void testGetPermanent(){
+        String s = permanentMaterialService.get(accessToken, "EQtep6xL-T4MXrKTXCSKhaeTldlEqIndnYt9q4Vgxto");
+        log.info(s);
     }
 }

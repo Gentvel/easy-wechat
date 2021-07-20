@@ -52,6 +52,14 @@ public class TemporaryMaterialService {
     }
 
     /**
+     * 上传图文消息素材接口
+     * @param accessToken token
+     */
+    public String uploadNews(String accessToken, String news){
+        return easyWeChatRequest.post(AppConst.ADD_TEMPORARY_NEWS,accessToken,news);
+    }
+
+    /**
      * 获取临时素材
      * @param accessToken token
      * @param mediaId mediaId
