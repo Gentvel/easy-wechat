@@ -3,8 +3,7 @@ HELP.md
 target/
 !**/src/main/**/target/
 !**/src/test/**/target/
-.mvnw
-.mvnw.cmd
+!**/src/test/java/resources/**
 
 ### STS ###
 .apt_generated
