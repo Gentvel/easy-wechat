@@ -2,8 +2,6 @@ package org.whistle.easywechat.bean;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 import org.springframework.lang.Nullable;
 import org.whistle.easywechat.consts.PassiveResponseType;
@@ -86,6 +84,20 @@ public class ToMessage {
     public ToMessage content(Object content){
         if(this.msgType.equals(PassiveResponseType.text.name())){
             this.content = content.toString();
+        }
+        else {
+            throw new MessageFormatException("文本消息类型错误");
+        }
+        return this;
+    }
+
+
+    /**
+     * 回复的消息内容（换行：在content中能够换行，微信客户端就支持换行显示）
+     */
+    public ToMessage content(String content,Object... params){
+        if(this.msgType.equals(PassiveResponseType.text.name())){
+            this.content = String.format(content,params);
         }
         else {
             throw new MessageFormatException("文本消息类型错误");
