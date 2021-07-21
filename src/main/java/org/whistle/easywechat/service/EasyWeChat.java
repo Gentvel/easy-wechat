@@ -1,6 +1,5 @@
 package org.whistle.easywechat.service;
 
-import com.alibaba.fastjson.JSONObject;
 import com.google.gson.JsonObject;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
@@ -292,8 +291,6 @@ public class EasyWeChat {
                 break;
             default: throw new IllegalArgumentException("消息类型["+sendType.name()+"]不存在，创建错误");
         }
-
-        log.info(JSONObject.toJSONString(to));
         Call<JsonObject> send = massMailing.send(accessToken, to);
         return queueJson(send);
     }
