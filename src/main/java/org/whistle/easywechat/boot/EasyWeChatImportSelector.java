@@ -33,7 +33,7 @@ public class EasyWeChatImportSelector implements ImportSelector {
         Set<String> classes = new HashSet<>();
         for (String p : basePackage) {
             componentProvider.findCandidateComponents(p).forEach(beanDefinition -> {classes.add(beanDefinition.getBeanClassName());
-            log.info(beanDefinition.getBeanClassName());
+            log.debug(beanDefinition.getBeanClassName());
             });
         }
 
