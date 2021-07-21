@@ -3,7 +3,7 @@ HELP.md
 target/
 !**/src/main/**/target/
 !**/src/test/**/target/
-!**/src/test/java/resources/**
+!**/src/test/**/resources/
 
 ### STS ###
 .apt_generated
