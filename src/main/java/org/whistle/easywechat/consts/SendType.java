@@ -6,7 +6,7 @@ package org.whistle.easywechat.consts;
  * @author Gentvel
  * @version 1.0.0
  */
-public enum MassMailingType {
+public enum SendType {
 
     /**
      * 图文消息为mpnews

@@ -1,6 +1,5 @@
 package org.whistle.easywechat.bean;
 
-import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -89,8 +88,8 @@ public class News {
         return this;
     }
 
-    public String build(){
-        return JSONObject.toJSONString(this);
+    public News build(){
+        return this;
     }
 
     public List<Article> getArticles() {

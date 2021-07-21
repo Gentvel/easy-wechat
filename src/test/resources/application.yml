@@ -1,5 +1,15 @@
 server:
   port: 8080
+  servlet:
+    context-path: /part-time
+spring:
+  profiles:
+    active: dev
+    #设置 Spring Boot 返回json 过滤null值
+  jackson:
+    default-property-inclusion: non_null
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
 whistle:
   wechat:
     domain: 'api.weixin.qq.com'

@@ -2,7 +2,9 @@ package org.whistle.easywechat;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.ResponseBody;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +14,15 @@ import org.springframework.core.io.ResourceLoader;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.whistle.easywechat.bean.News;
-import org.whistle.easywechat.service.AccessTokenService;
-import org.whistle.easywechat.service.MassMailingService;
-import org.whistle.easywechat.service.PermanentMaterialService;
-import org.whistle.easywechat.service.TemporaryMaterialService;
+import org.whistle.easywechat.consts.SendType;
+import org.whistle.easywechat.service.*;
 
+import javax.annotation.Resource;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -31,10 +36,10 @@ import java.util.ArrayList;
 @SpringBootTest(classes = EasyWechatApplicationTest.class)
 @DisplayName("测试素材服务")
 public class ServicesTest implements ResourceLoaderAware {
-    private String appid = "wx32c2aac964d2e892";
+    private String appid = "wx32c2aac964d2e892-1";
     private String secret = "6fccb15a4b1f3687674711186e644d68";
     //临时素材
-    private String accessToken="47_2BjR3lBWoFgwlHJ-0BbkVKt9ONcVPTbwLUw1NOhAkLlWK0wX2qJsC6N4WF6VF0ilFTBwK4cLgdMRb31QyzPcHUccQJX-MDff_ng_avMGsX_vwg1q7u7XWA0XvyUkv8HU4eT16q4Y8dGMmy7WIQIeAHALTL";
+    private String accessToken="47_G94wIjZ7C8JhyWu6ZsPLe77B6Do5zXh3UR9d-53aeQmqUsku7vYfDPnvmcWIu2Dk_10o6Dpk9LYJEZke_fPY43i2Tm0VB0ieTg3aNY0pIIqbijXUFjmfYx4yBiDFuvZOfcEOxYmZ92WjNlERDXReACAHBV";
 
     private LocalDateTime expires;
 
@@ -54,6 +59,8 @@ public class ServicesTest implements ResourceLoaderAware {
     private MassMailingService massMailingService;
 
 
+    @Resource
+    private EasyWeChat easyWeChat;
 
     @Test
     @DisplayName("获取accessToken")
@@ -109,6 +116,8 @@ public class ServicesTest implements ResourceLoaderAware {
         //http://mmbiz.qpic.cn/mmbiz_png/K8qOZbu34F9wBkfv4vzFo13qaia4EzuricD3aYic9fRcEsvfaedLYR4dhyCHL95Kr9RBxjybqTlI22tnr2c3HWTjQ/0
         //image
         //{"media_id":"EQtep6xL-T4MXrKTXCSKhfJSflmXe3vQHAfCcImm1CM","url":"http:\/\/mmbiz.qpic.cn\/mmbiz_png\/K8qOZbu34FibOZM8ibOkFdHOtHdqNtENatyLMA6WzeQj6ibHtibMLaEQxN4vKgQ5ABlU7dSG6vvPCicjroXbyEmhiaGw\/0?wx_fmt=png","item":[]}
+        //image
+        //{"media_id":"EQtep6xL-T4MXrKTXCSKhRW5KJbVT0xUdAIEh3Wk3Uw","url":"http:\/\/mmbiz.qpic.cn\/mmbiz_png\/K8qOZbu34F9Clae8c82bibrZhZ9msqVrsO5uonxtqLV63yibuXhjB1Ks40ndmzqAujBIGttlByMaGFYCovX0L1gg\/0?wx_fmt=png","item":[]}
     }
 
 
@@ -164,8 +173,8 @@ public class ServicesTest implements ResourceLoaderAware {
         log.info(result);
 
 
-        String build = News.start().content(result).title("测试1").thumbMediaId("EQtep6xL-T4MXrKTXCSKhfJSflmXe3vQHAfCcImm1CM").end().build();
-        String s = permanentMaterialService.uploadNews(accessToken, build);
+        News te = News.start().content(result).title("测试1").thumbMediaId("EQtep6xL-T4MXrKTXCSKheCHH1Zf4e3fZkCgAkhrtRc").end().build();
+        String s = permanentMaterialService.uploadNews(accessToken, JSONObject.toJSONString(te));
         log.info(s);
         //{"media_id":"EQtep6xL-T4MXrKTXCSKhdYwPwo22i3I1KyMr1sh5N8","item":[]}
         //{"media_id":"EQtep6xL-T4MXrKTXCSKhSWqQ8r4fsgmfImxTJqMAvA","item":[]}
@@ -174,6 +183,7 @@ public class ServicesTest implements ResourceLoaderAware {
         //{"media_id":"EQtep6xL-T4MXrKTXCSKhYDOEoI9FsyHiuUBADpLeBk","item":[]}
         //{"media_id":"EQtep6xL-T4MXrKTXCSKhUrqeNfdhJD42rGWKgNDI5I","item":[]}
         //{"media_id":"EQtep6xL-T4MXrKTXCSKhaeTldlEqIndnYt9q4Vgxto","item":[]}
+        //{"media_id":"EQtep6xL-T4MXrKTXCSKhTtqEiBo3Xop5omxdJxBDyk","item":[]}
     }
 
 
@@ -188,11 +198,6 @@ public class ServicesTest implements ResourceLoaderAware {
         //群发
     }
 
-    @Test
-    public void test(){
-        String json = "{\"touser\":\"o8IHE5tYEg5C5X3IHugKQJi0ENtk\",\"mpnews\":{\"media_id\":\"EQtep6xL-T4MXrKTXCSKhdYwPwo22i3I1KyMr1sh5N8\"}, \"msgtype\":\"mpnews\"}";
-        System.out.println(json);
-    }
 
     private ResourceLoader resourceLoader;
 
@@ -204,7 +209,88 @@ public class ServicesTest implements ResourceLoaderAware {
     @Test
     @DisplayName("测试获取素材")
     public void testGetPermanent(){
-        String s = permanentMaterialService.get(accessToken, "EQtep6xL-T4MXrKTXCSKhaeTldlEqIndnYt9q4Vgxto");
+        String s = permanentMaterialService.get(accessToken, "EQtep6xL-T4MXrKTXCSKhRW5KJbVT0xUdAIEh3Wk3Uw");
         log.info(s);
     }
+
+
+    @Test
+    @DisplayName("测试retrofit获取accesstoken")
+    public void getAccessTokenTest(){
+        JsonObject accessToken = easyWeChat.getAccessToken(null, secret);
+        log.info(accessToken.toString());
+        String access_token = accessToken.get("access_token").getAsString();
+        log.info(access_token);
+        String expire_in = accessToken.get("expires_in").getAsString();
+        log.info(expire_in);
+    }
+
+
+
+    @Test
+    @DisplayName("测试retrofit上传素材图片")
+    public void uploadNewsImageTest(){
+        JsonObject jsonObject = easyWeChat.uploadNewsImage(accessToken, new File("D:\\reactor1.png"));
+        log.info(jsonObject.toString());
+    }
+
+    @Test
+    @DisplayName("测试retrofit上传图文")
+    public void uploadNewsTest(){
+        //JsonObject jsonObject = easyWeChat.uploadNews(accessToken);
+        //log.info(jsonObject.toString());
+    }
+
+    //EQtep6xL-T4MXrKTXCSKheCHH1Zf4e3fZkCgAkhrtRc
+    @Test
+    @DisplayName("测试retrofit上传图片素材")
+    public void uploadMaterialTest(){
+        JsonObject jsonObject = easyWeChat.uploadImage(accessToken,new File("D:\\reactor1.png"));
+        log.info(jsonObject.toString());
+    }
+
+    //EQtep6xL-T4MXrKTXCSKhQMn482y-jq4S4g9h-zWpnE
+    @Test
+    @DisplayName("测试retrofit获取素材")
+    public void getTest(){
+        ResponseBody material = easyWeChat.getMaterial(accessToken, "EQtep6xL-T4MXrKTXCSKheCHH1Zf4e3fZkCgAkhrtRc");
+        try {
+            byte[] bytes = material.bytes();
+            File file = new File("E:\\rector4.png");
+            if(!file.exists()){
+                file.createNewFile();
+            }
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            FileChannel channel = fileOutputStream.getChannel();
+            ByteBuffer byteBuffer = ByteBuffer.allocate(bytes.length);
+            byteBuffer.put(bytes);
+            byteBuffer.flip();
+            channel.write(byteBuffer);
+            channel.close();
+            byteBuffer.clear();
+            fileOutputStream.close();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    @DisplayName("测试retrofit预览")
+    public void preview(){
+        JsonObject jsonObject = easyWeChat.preview(accessToken, SendType.text,"xixi","o8IHE5tYEg5C5X3IHugKQJi0ENtk");
+        log.info(jsonObject.toString());
+    }
+
+
+    @Test
+    @DisplayName("测试retrofit推送")
+    public void send(){
+        JsonObject jsonObject = easyWeChat.send(accessToken, SendType.mpnews,"EQtep6xL-T4MXrKTXCSKhTtqEiBo3Xop5omxdJxBDyk",null);
+        log.info(jsonObject.toString());
+    }
+
+
 }

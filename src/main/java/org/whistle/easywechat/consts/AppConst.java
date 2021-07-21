@@ -68,9 +68,13 @@ public class AppConst {
     public static final String GET_MATERIAL_LIST = "/cgi-bin/material/batchget_material";
 
     /**
-     * 群发消息
+     * 根据标签进行群发【订阅号与服务号认证后均可用】
      */
-    public static final String MASS_MAILING_SEND = "/cgi-bin/message/mass/sendall";
+    public static final String MASS_MAILING_SEND_TAG = "/cgi-bin/message/mass/sendall";
+    /**
+     * 根据OpenID列表群发【订阅号不可用，服务号认证后可用】
+     */
+    public static final String MASS_MAILING_SEND_USER = "/cgi-bin/message/mass/send";
     /**
      * 群发接口预览
      */

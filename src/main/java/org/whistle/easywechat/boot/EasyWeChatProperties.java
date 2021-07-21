@@ -67,6 +67,13 @@ public class EasyWeChatProperties {
      * 是否粉丝才可评论，0所有人可评论，1粉丝才可评论
      */
     private Integer onlyFansCanComment;
-
+    /**
+     * 图文作者
+     */
+    private String author;
+    /**
+     * 图文摘要
+     */
+    private String digest;
 
 }
